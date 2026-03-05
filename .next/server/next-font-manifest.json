@@ -1,15 +1,1 @@
-{
-  "app": {
-    "[project]/src/app/page": [
-      "static/media/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw-s.p.0faac26c.woff2",
-      "static/media/TK3iWkUHHAIjg752GT8Gl_1PKw-s.p.0633c0cf.woff2"
-    ],
-    "[project]/src/app/_not-found/page": [
-      "static/media/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw-s.p.0faac26c.woff2",
-      "static/media/TK3iWkUHHAIjg752GT8Gl_1PKw-s.p.0633c0cf.woff2"
-    ]
-  },
-  "appUsingSizeAdjust": true,
-  "pages": {},
-  "pagesUsingSizeAdjust": false
-}
+{"pages":{},"app":{"/Users/admin/tri-sports-academy/src/app/layout":["static/media/e4af272ccee01ff0-s.p.woff2","static/media/7f06be3f780a819a-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}
