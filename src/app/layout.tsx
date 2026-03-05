@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Oswald } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,26 +10,42 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const oswald = Oswald({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-oswald",
+  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
+const SITE_URL = "https://trisportsacademykharar.com";
+const OG_IMAGE = "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200";
+
 export const metadata: Metadata = {
-  title: "Tri-Sports Academy Kharar | Professional Turf for Cricket & Football",
+  metadataBase: new URL(SITE_URL),
+  title: "Tri-Sports Academy Kharar | Cricket, Football & Badminton Turf",
   description:
-    "Play cricket and football at Tri-Sports Academy Kharar. Professional synthetic turf, night lighting, equipment available. Book your match in Kharar, Punjab.",
+    "Play cricket, football, and badminton at Tri-Sports Academy Kharar. Professional turf, badminton courts, night lighting, equipment available. Book in Kharar, Punjab.",
   keywords: [
     "cricket turf Kharar",
     "football turf Kharar",
+    "badminton court Kharar",
     "sports academy Punjab",
     "box cricket Kharar",
     "turf booking Kharar",
   ],
   openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: SITE_URL,
     title: "Tri-Sports Academy Kharar | Professional Turf Sports Arena",
     description:
-      "Professional turf ground for cricket and football in Kharar. Play, train, compete!",
+      "Professional turf for cricket, football & badminton in Kharar. Play, train, compete!",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tri-Sports Academy Kharar | Professional Turf Sports Arena",
+    description: "Professional turf for cricket, football & badminton in Kharar.",
+    images: [OG_IMAGE],
   },
 };
 
@@ -38,7 +54,7 @@ const jsonLd = {
   "@type": "SportsActivityLocation",
   name: "Tri-Sports Academy Kharar",
   description:
-    "Professional turf sports arena for cricket and football in Kharar. Synthetic turf, night lighting, equipment available.",
+    "Professional turf sports arena for cricket, football & badminton in Kharar. Synthetic turf, courts, night lighting, equipment available.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Near Bhagat Ghat Mandir, Guru Teg Bahadur Nagar",
@@ -60,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${oswald.variable}`}
+      className={`${inter.variable} ${outfit.variable}`}
     >
       <body className="font-sans">
         <script

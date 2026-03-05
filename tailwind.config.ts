@@ -10,35 +10,32 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          50: "#e8f5e9",
-          100: "#c8e6c9",
-          200: "#a5d6a7",
-          300: "#81c784",
-          400: "#66bb6a",
-          500: "#4caf50",
-          600: "#43a047",
-          700: "#388e3c",
-          800: "#2e7d32",
-          900: "#1b5e20",
-          950: "#0d3d12",
+          DEFAULT: "#0a2e0f",
+          50: "#f0f7f0",
+          100: "#d9edd9",
+          200: "#b5ddb6",
+          300: "#85c587",
+          400: "#52a855",
+          500: "#318c35",
+          600: "#247028",
+          700: "#1f5a22",
+          800: "#1c4820",
+          900: "#0a2e0f",
         },
-        sport: {
-          green: "#0d3d12",
-          "green-light": "#1b5e20",
-          yellow: "#fbbf24",
-          "yellow-dark": "#d97706",
+        accent: {
+          DEFAULT: "#c9a227",
+          light: "#e5c04a",
+          dark: "#a8851f",
         },
       },
       fontFamily: {
-        display: ["var(--font-oswald)", "sans-serif"],
-        sans: ["var(--font-inter)", "sans-serif"],
-      },
-      backgroundImage: {
-        "turf-pattern": "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231b5e20' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
       },
       animation: {
-        "fade-in": "fadeIn 0.6s ease-out forwards",
-        "slide-up": "slideUp 0.6s ease-out forwards",
+        "fade-in": "fadeIn 1s cubic-bezier(0.21, 0.47, 0.32, 0.98) forwards",
+        "slide-up": "slideUp 0.8s cubic-bezier(0.21, 0.47, 0.32, 0.98) forwards",
+        float: "float 6s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -46,8 +43,12 @@ const config: Config = {
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(40px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
         },
       },
     },

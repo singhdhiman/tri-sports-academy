@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #0d3d12;
-  --color-secondary: #fbbf24;
-  --color-accent: #1b5e20;
+  --color-primary: #0a2e0f;
+  --color-accent: #c9a227;
+  --color-surface: #fafaf9;
+  --color-surface-elevated: #ffffff;
 }
 
 html {
@@ -13,11 +14,33 @@ html {
 }
 
 body {
-  @apply bg-white text-gray-900 antialiased;
+  @apply antialiased bg-[#fafaf9] text-[#1d1d1f];
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Apple-style smooth scrolling */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
   }
+}
+
+/* Refined selection */
+::selection {
+  @apply bg-[#0a2e0f]/20 text-[#0a2e0f];
+}
+
+/* Subtle gradient overlays */
+.gradient-mask {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+/* Premium blur */
+.glass {
+  @apply backdrop-blur-xl;
+}
+
+/* Accessibility: Focus styles */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent;
 }

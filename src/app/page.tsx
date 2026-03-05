@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Sports from "@/components/Sports";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import Facilities from "@/components/Facilities";
 import Gallery from "@/components/Gallery";
 import Location from "@/components/Location";
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <About />
       <Sports />
+      <WhyChooseUs />
       <Facilities />
       <Gallery />
       <Location />

@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -13,92 +15,136 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const activeSection = useActiveSection();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-sport-green/95 backdrop-blur-md border-b border-sport-yellow/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled ? "bg-white/80 backdrop-blur-xl shadow-sm" : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link
             href="#home"
-            className="font-display text-xl md:text-2xl font-bold text-sport-yellow tracking-wide hover:text-white transition-colors"
+            className={`font-display text-lg md:text-xl font-semibold tracking-tight transition-colors duration-300 ${
+              scrolled ? "text-primary" : "text-white"
+            }`}
           >
             Tri-Sports Academy
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-white/90 hover:text-sport-yellow font-medium transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-10" role="navigation" aria-label="Main navigation">
+            {navLinks.map((link) => {
+              const sectionId = link.href.slice(1);
+              const isActive = activeSection === sectionId;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors duration-200 hover:opacity-80 ${
+                    isActive
+                      ? "text-accent font-semibold"
+                      : scrolled
+                        ? "text-primary"
+                        : "text-white/90"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <a
               href="tel:+919781373636"
-              className="bg-sport-yellow text-sport-green px-4 py-2 rounded-lg font-semibold hover:bg-sport-yellow-dark transition-colors"
+              className="text-sm font-medium px-5 py-2.5 bg-accent text-primary rounded-full hover:bg-accent-light transition-colors"
             >
               Call Now
+            </a>
+            <a
+              href="https://wa.me/919781373636?text=Hi!%20I'd%20like%20to%20book%20the%20turf%20at%20Tri-Sports%20Academy%20Kharar."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium px-5 py-2.5 bg-[#25D366] text-white rounded-full hover:bg-[#20BD5A] transition-colors"
+            >
+              Book
             </a>
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg text-white hover:bg-white/10"
+            className={`md:hidden p-2 rounded-full transition-colors ${
+              scrolled ? "text-primary hover:bg-primary/5" : "text-white hover:bg-white/10"
+            }`}
             aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
         </div>
 
-        {/* Mobile menu */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-sport-yellow/20 animate-fade-in">
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-white/90 hover:text-sport-yellow font-medium transition-colors py-2"
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="py-6 border-t border-primary/10 flex flex-col gap-4">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block text-primary font-medium py-2 hover:opacity-70"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <a
+                  href="tel:+919781373636"
+                  className="mt-2 inline-flex justify-center px-6 py-3 bg-accent text-primary font-medium rounded-full"
                 >
-                  {link.label}
-                </Link>
-              ))}
-              <a
-                href="tel:+919781373636"
-                className="bg-sport-yellow text-sport-green px-4 py-3 rounded-lg font-semibold text-center hover:bg-sport-yellow-dark transition-colors"
-              >
-                Call Now
-              </a>
-            </div>
-          </div>
-        )}
+                  Call Now
+                </a>
+                <a
+                  href="https://wa.me/919781373636?text=Hi!%20I'd%20like%20to%20book%20the%20turf%20at%20Tri-Sports%20Academy%20Kharar."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex justify-center px-6 py-3 bg-[#25D366] text-white font-medium rounded-full"
+                >
+                  Book via WhatsApp
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
